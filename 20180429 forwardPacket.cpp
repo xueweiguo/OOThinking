@@ -43,7 +43,7 @@ class StringSegment : public Segment
 {
 public:
     StringSegment(string&& str)
-        :m_msg(std::forward<string>(str))
+        :m_msg(std::move(str))
     {
     }
     StringSegment(string& str)
@@ -98,6 +98,12 @@ public:
         m_segs.push_back(new IntSegment(value));
     }
 
+    template<typename T, typename... Args>
+    void add(T&& t, Args&&... rest){
+        add(std::forward<T>(t));
+        add(std::forward<Args>(rest)...);
+    }
+
     ostream& output(ostream& os) const
     {
         for(auto seg:m_segs){
@@ -114,23 +120,6 @@ ostream& operator<<(ostream& os, const MsgHolder& holder)
     return holder.output(os);
 }
 
-template<typename T>
-void merge(MsgHolder& mh, T&& t)
-{
-    mh.add(std::forward<T>(t));
-}
-
-template<typename T, typename... Args>
-void merge(MsgHolder& mh, T&& t, Args&&... rest){
-    merge(mh, std::forward<T>(t));
-    merge(mh, std::forward<Args>(rest)...);
-}
-
-void rvalue(string&& s){
-    string t = std::move(s);
-    cout << t << endl;
-}
-
 int main()
 {
     MsgHolder mh;
@@ -138,7 +127,7 @@ int main()
     string rtest("RValue Test.");
 
     //ltest：左值引用，rtest:右值引用
-    merge(mh, 2, " test of ", ltest, " and ", std::move(rtest));
+    mh.add(2, " test of ", ltest, " and ", std::move(rtest));
 
     //拷贝操作，ltest内容不变。输出：ltest=LValue Test.
     cout << "ltest=" << ltest << endl;
