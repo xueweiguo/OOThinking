@@ -28,11 +28,9 @@ int main()
     bitset<8> b4(str2, 0, 8, 'A', 'B');
     cout << "b4=" << b4.to_string() << endl;
 
-
     bitset<4> t1(0x02);
-    bitset<6> t2(0x2f);
+    bitset<6> t2(0x3f);
     bitset<8> t3(0x00);
-
     //测试是否存在1
     cout << "any?" << t1.any() << t2.any() << t3.any() <<endl;
     //测试是否都是1
@@ -66,7 +64,7 @@ int main()
     cout << "bt.flip()=" << bt.to_string() << endl;
 
 
-
+    //输出
     bitset<64> llbt(0x01234567890ABCDEF);
     //输出ulonglong
     cout << "to_ullong=" << llbt.to_ullong() << endl;
