@@ -29,7 +29,6 @@ int main()
     cout << boolalpha << noexcept(fun(s1, s2)) << endl;
 
     cout << boolalpha << noexcept(fun1(i1, i2)) << endl;
-
     cout << boolalpha << noexcept(fun2(s1, s2)) << endl;
     return 0;
 }
