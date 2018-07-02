@@ -7,6 +7,7 @@ class CustomScrollbar : public Scrollbar
 {
 public:
     CustomScrollbar();
+    CustomScrollbar(const CustomScrollbar& from);
     CustomScrollbar* clone();
 };
 

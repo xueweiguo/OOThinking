@@ -7,6 +7,7 @@ class CustomWindow : public Window
 {
 public:
     CustomWindow();
+    CustomWindow(const CustomWindow& from);
     CustomWindow* clone();
 };
 
